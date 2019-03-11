@@ -16,8 +16,7 @@ namespace Wpf.CartesianChart.BasicLine
       
             stm.PortName = "COM8";
             stm.BaudRate = 115200;
-
-
+            
             SeriesCollection = new SeriesCollection
             {
                 new LineSeries
@@ -74,6 +73,10 @@ namespace Wpf.CartesianChart.BasicLine
             stm.Write("i");
             //stm.r
             stm.Close();
+            double dd = 123.1;
+            txt1.Text =  dd.ToString();
+            
+
         }
     }
 }

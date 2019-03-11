@@ -17,5 +17,9 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
         <Button x:Name="startbtn" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="startbtn_Click" Margin="0,280,0,0"/>
+        <Button x:Name="btn2" Content="Stop" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="optionbtn_Click" Margin="75,0,0,0"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Right" Height="23" Margin="180,277,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom" Width="120"/>
+        <TextBlock x:Name="txt1" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Center" Margin="-35,0,150,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom"/>
+        
     </Grid>
 </UserControl>
