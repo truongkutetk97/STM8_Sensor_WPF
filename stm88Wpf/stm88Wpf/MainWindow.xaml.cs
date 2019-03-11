@@ -21,29 +21,29 @@ namespace Wpf.CartesianChart.BasicLine
             SeriesCollection = new SeriesCollection
             {
                 new LineSeries
-                {   
+                {
                     Title = "Channel 1",
-                    Values = new ChartValues<double> { 0}
+                    Values = new ChartValues<double> { 1}
                 },
                 new LineSeries
                 {
                     Title = "Channel 2",
-                    Values = new ChartValues<double> { 0}
+                    Values = new ChartValues<double> { 1}
+                },
+                new LineSeries
+                {
+                    Title = "Channel 3",
+                    Values = new ChartValues<double> { 1}
                 }
             };
 
-            Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" };
-            YFormatter = value => value.ToString("C");
+            Labels = new[] { "0","0,5" };
+          //  YFormatter = value => value.ToString("A");
 
             //modifying the series collection will animate and update the chart
-            SeriesCollection.Add(new LineSeries
-            {
-                Values = new ChartValues<double> { 0 },
-                LineSmoothness = 0 //straight lines, 1 really smooth lines
-            });
-
+           
             //modifying any series values will also animate and update the chart
-            SeriesCollection[2].Values.Add(5d);
+            //SeriesCollection[2].Values.Add(5d);
 
             DataContext = this;
         }
@@ -63,7 +63,7 @@ namespace Wpf.CartesianChart.BasicLine
             SeriesCollection[1].Values.Add(Convert.ToDouble(r2.Next(1, 15)));
             Random r3 = new Random();
             SeriesCollection[2].Values.Add(Convert.ToDouble(r3.Next(1, 5)));
-
+            
         }
 
         
