@@ -2,15 +2,22 @@
 using System.Windows.Controls;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System.IO;
+using System.IO.Ports;
 
 namespace Wpf.CartesianChart.BasicLine
 {
     public partial class BasicLineExample : UserControl
     {
+        SerialPort stm = new SerialPort();
         public BasicLineExample()
         {
             InitializeComponent();
-           
+      
+            stm.PortName = "COM8";
+            stm.BaudRate = 115200;
+
+
             SeriesCollection = new SeriesCollection
             {
                 new LineSeries
@@ -47,7 +54,9 @@ namespace Wpf.CartesianChart.BasicLine
 
         private void startbtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            stm.Open();
+            stm.Write("j");
+            stm.Close();
             Random r1 = new Random();
             SeriesCollection[0].Values.Add(Convert.ToDouble(r1.Next(1,10)));
             Random r2 = new Random();
@@ -57,11 +66,14 @@ namespace Wpf.CartesianChart.BasicLine
 
         }
 
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        
+
+        private void optionbtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            stm.Open();
+            stm.Write("i");
+            //stm.r
+            stm.Close();
         }
-
-      
     }
 }
