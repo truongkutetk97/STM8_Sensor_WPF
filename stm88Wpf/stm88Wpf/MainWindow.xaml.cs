@@ -13,8 +13,9 @@ namespace Wpf.CartesianChart.BasicLine
     {
         System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
         bool datarcv = false;
-       
+        int n = 0; 
         double sensor;
+        double ampere;
         SerialPort stm = new SerialPort();
             
         public BasicLineExample()
@@ -68,27 +69,21 @@ namespace Wpf.CartesianChart.BasicLine
         {
             stm.Open();
             string[] arrList = stm.ReadLine().Split('\n');
-            if (datarcv == true && arrList[0] != "chao cac ban")
+            if (arrList[0].Contains("adc") == true)
             {
-                arrList[0].Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
-                arrList[0].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
                 arrList[0].Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                sensor = Convert.ToDouble(arrList[0]);
+                txt1.Text = arrList[0].Trim().Remove(0, 3);
+                sensor = Convert.ToDouble(arrList[0].Replace("adc",""));
+                ampere = (sensor - 510) / 1024 * 5000000 / 185; 
                 datarcv = false;
-
                 Random r1 = new Random();
-                SeriesCollection[0].Values.Add(sensor);
-                
-                /*
-                Random r2 = new Random();
-                SeriesCollection[1].Values.Add(sensor/100*32);
-                Random r3 = new Random();
-                SeriesCollection[2].Values.Add(sensor/100);*/
+                if (n >= 17)
+                    SeriesCollection[0].Values.RemoveAt(0);
+                else n++;
+                SeriesCollection[0].Values.Add(ampere);
 
-            }
-            txt1.Text = arrList[0];
-            if (arrList[0] == "chao cac ban") datarcv = true;
-            else datarcv = false;
+            } 
             stm.Close();
 
         }
