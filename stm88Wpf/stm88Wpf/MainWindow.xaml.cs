@@ -78,10 +78,12 @@ namespace Wpf.CartesianChart.BasicLine
 
                 Random r1 = new Random();
                 SeriesCollection[0].Values.Add(sensor);
+                
+                /*
                 Random r2 = new Random();
                 SeriesCollection[1].Values.Add(sensor/100*32);
                 Random r3 = new Random();
-                SeriesCollection[2].Values.Add(sensor/100);
+                SeriesCollection[2].Values.Add(sensor/100);*/
 
             }
             txt1.Text = arrList[0];
@@ -100,13 +102,8 @@ namespace Wpf.CartesianChart.BasicLine
             string[] arrList = stm.ReadLine().Split('\n');
             txt1.Text = arrList[0];
             stm.Close();
-
-            Random r1 = new Random();
-            SeriesCollection[0].Values.Add(sensor);
-            Random r2 = new Random();
-            SeriesCollection[1].Values.Add(Convert.ToDouble(r2.Next(1, 15)));
-            Random r3 = new Random();
-            SeriesCollection[2].Values.Add(sensor);
+            SeriesCollection[0].Values.RemoveAt(0);
+            
             
         }
 
