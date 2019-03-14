@@ -13,11 +13,14 @@ namespace Wpf.CartesianChart.BasicLine
     {
         System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
         bool datarcv = false;
-        int n = 0; 
+        int n = 0;
+        UInt16 offsetvalue = 512;
         double sensor;
         double ampere;
+        string show;
         SerialPort stm = new SerialPort();
-            
+        double lbl = 0;
+        string[] lbll;
         public BasicLineExample()
         {
             
@@ -47,8 +50,8 @@ namespace Wpf.CartesianChart.BasicLine
                     Values = new ChartValues<double> { 1}
                 }
             };
-            
-            Labels = new[] { "0","0,5" };
+          
+           Labels = new[] { "0" };
           //  YFormatter = value => value.ToString("A");
 
             //modifying the series collection will animate and update the chart
@@ -73,16 +76,17 @@ namespace Wpf.CartesianChart.BasicLine
             {
 
                 arrList[0].Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                txt1.Text = arrList[0].Trim().Remove(0, 3);
+               // txt1.Text = arrList[0].Trim().Remove(0, 3);
                 sensor = Convert.ToDouble(arrList[0].Replace("adc",""));
-                ampere = (sensor - 510) / 1024 * 5000000 / 185; 
+                ampere = (sensor - offsetvalue) / 1024 * 5120000 / 135; 
                 datarcv = false;
                 Random r1 = new Random();
                 if (n >= 17)
                     SeriesCollection[0].Values.RemoveAt(0);
                 else n++;
                 SeriesCollection[0].Values.Add(ampere);
-
+                
+                txt1.Text = Convert.ToInt16(ampere).ToString() + "mA";
             } 
             stm.Close();
 
@@ -92,14 +96,11 @@ namespace Wpf.CartesianChart.BasicLine
 
             stm.Open();
             stm.Write("j");
+           
+            offsetvalue = Convert.ToUInt16( sensor); 
             stm.Close();
-            stm.Open();
-            string[] arrList = stm.ReadLine().Split('\n');
-            txt1.Text = arrList[0];
-            stm.Close();
-            SeriesCollection[0].Values.RemoveAt(0);
-            
-            
+           
+
         }
 
         
