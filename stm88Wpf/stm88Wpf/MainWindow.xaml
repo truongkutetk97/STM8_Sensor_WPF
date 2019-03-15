@@ -16,10 +16,16 @@
                 <lvc:Axis Title="Serial Plotter" FontSize="18" Foreground="Black"  Labels="{Binding Labels}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
-        <Button x:Name="startbtn" Content="Set" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="startbtn_Click" Margin="0,280,0,0"/>
-        <Button x:Name="btn2" Content="Stop" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="optionbtn_Click" Margin="75,0,0,0"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Right" Height="23" Margin="180,277,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom" Width="120"/>
+        <Button x:Name="startbtn" Content="Set" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="startbtn_Click" Margin="75,0,0,0"/>
+        <Button x:Name="btn2" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="optionbtn_Click"/>
+        <TextBox x:Name="textBox"  HorizontalAlignment="Right" Height="25" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Bottom" Width="89" Margin="0,0,10,9">
+            <TextBox.Effect>
+                <DropShadowEffect/>
+            </TextBox.Effect>
+
+        </TextBox>
         <TextBlock x:Name="txt1" FontSize="16" Foreground="DarkCyan" HorizontalAlignment="Left" Margin="390,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom"/>
-        
+        <ComboBox x:Name="cbx1" HorizontalAlignment="Left" Margin="0,0,225,20" VerticalAlignment="Bottom" Width="74" Height="25" DropDownOpened="cbx1_SelectionChanged"/>
+
     </Grid>
 </UserControl>

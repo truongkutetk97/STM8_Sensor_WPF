@@ -15,6 +15,7 @@ namespace Wpf.CartesianChart.BasicLine
         bool datarcv = false;
         int n = 0;
         UInt16 offsetvalue = 512;
+        double scalevalue = 37.04;
         double sensor;
         double ampere;
         string show;
@@ -27,11 +28,10 @@ namespace Wpf.CartesianChart.BasicLine
             InitializeComponent();
             timer.Tick += timer_Tick;
             timer.Interval = TimeSpan.FromMilliseconds(100);
-            timer.Start();
+           
 
-            stm.PortName = "COM8";
-            stm.BaudRate = 115200;
             
+            //string[] ports = SerialPort.GetPortNames();
             SeriesCollection = new SeriesCollection
             {
                 new LineSeries
@@ -52,13 +52,14 @@ namespace Wpf.CartesianChart.BasicLine
             };
           
            Labels = new[] { "0" };
+           // Labels[1] = "1";
           //  YFormatter = value => value.ToString("A");
 
             //modifying the series collection will animate and update the chart
            
             //modifying any series values will also animate and update the chart
             //SeriesCollection[2].Values.Add(5d);
-
+            
             DataContext = this;
           
             
@@ -78,7 +79,7 @@ namespace Wpf.CartesianChart.BasicLine
                 arrList[0].Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                // txt1.Text = arrList[0].Trim().Remove(0, 3);
                 sensor = Convert.ToDouble(arrList[0].Replace("adc",""));
-                ampere = (sensor - offsetvalue) / 1024 * 5120000 / 135; 
+                ampere = (sensor - offsetvalue) * scalevalue; //1024 * 5120000 / 135; 
                 datarcv = false;
                 Random r1 = new Random();
                 if (n >= 17)
@@ -93,12 +94,10 @@ namespace Wpf.CartesianChart.BasicLine
         }
         private void startbtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
-            stm.Open();
-            stm.Write("j");
+           
            
             offsetvalue = Convert.ToUInt16( sensor); 
-            stm.Close();
+            
            
 
         }
@@ -107,14 +106,27 @@ namespace Wpf.CartesianChart.BasicLine
 
         private void optionbtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            stm.Open();
-            stm.Write("i");
-            //stm.r
-            stm.Close();
-            double dd = 123.1;
-            txt1.Text =  dd.ToString();
-            
 
+            stm.PortName = cbx1.Text;
+            stm.BaudRate = 115200;
+            timer.Start();
+            stm.Open();
+            stm.Write("j");
+            stm.Close();
         }
+
+        
+
+        private void cbx1_SelectionChanged(object sender, EventArgs e)
+        {
+            string[] ports = SerialPort.GetPortNames();
+            cbx1.Items.Clear();
+            foreach (string comport in ports)
+            {
+                cbx1.Items.Add(comport);
+            }
+        }
+
+      
     }
 }
